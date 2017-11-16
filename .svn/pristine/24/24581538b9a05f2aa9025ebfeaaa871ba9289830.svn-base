@@ -1,0 +1,115 @@
+package com.example.nappy.ui.fragment;
+
+
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.TextView;
+
+import com.example.nappy.R;
+import com.example.nappy.beans.MenuBean;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static com.android.volley.VolleyLog.TAG;
+
+public class LeftMenuFragment extends Fragment {
+
+
+
+
+    private ListView lvList;
+
+    private List<MenuBean> menuBeen = new ArrayList<>();
+
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View view=inflater.inflate(R.layout.fragment_left_menu, container, false);
+        return view;
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        initView(view);
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        initAdapter();
+    }
+
+    private void initAdapter() {
+        menuBeen.add(new MenuBean(R.mipmap.ic_launcher, "标题1"));
+        menuBeen.add(new MenuBean(R.mipmap.ic_launcher, "标题1"));
+        menuBeen.add(new MenuBean(R.mipmap.ic_launcher, "标题1"));
+        menuBeen.add(new MenuBean(R.mipmap.ic_launcher, "标题1"));
+        menuBeen.add(new MenuBean(R.mipmap.ic_launcher, "标题1"));
+        lvList.setAdapter(new MenuAdapter());
+    }
+
+
+
+    private void initView(View view) {
+        lvList =view.findViewById(R.id.lv_list);
+        Log.i(TAG, "initView: "+lvList);
+    }
+
+
+    public class MenuAdapter extends BaseAdapter {
+
+        @Override
+        public int getCount() {
+            return menuBeen.size();
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return menuBeen.get(position);
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return position;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            MenuBean menu = menuBeen.get(position);
+            ViewHoler viewHoler;
+            if (convertView == null) {
+                convertView = LayoutInflater.from(getActivity())
+                        .inflate(R.layout.menu_list_item, parent, false);
+                viewHoler = new ViewHoler();
+                viewHoler.icon = convertView.findViewById(R.id.iv_image);
+                viewHoler.text = convertView.findViewById(R.id.tv_text);
+                convertView.setTag(viewHoler);
+            } else {
+                viewHoler = (ViewHoler) convertView.getTag();
+            }
+            viewHoler.icon.setBackgroundResource(menu.getIcon());
+            viewHoler.text.setText(menu.getTitle());
+            return convertView;
+        }
+
+        public class ViewHoler {
+            ImageView icon;
+            TextView text;
+        }
+    }
+}

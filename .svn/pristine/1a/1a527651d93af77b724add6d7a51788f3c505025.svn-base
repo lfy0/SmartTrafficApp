@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">Nappy</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="car_id">车牌号</string>
+    <string name="weichuliweizhang">未处理违章</string>
+    <string name="fakuan_2_250">扣2分罚款250元</string>
+    <string name="chuli">未处理</string>
+    <string name="xueyuanlu">学院路</string>
+    <string name="weizhsnag">违章信息</string>
+    <string name="koufen">扣分</string>
+    <string name="fakuan">罚款</string>
+    <string name="a10003">辽A10003</string>
+    <string name="chezhu">车主:李四</string>
+    <string name="_100">余额:100</string>
+    <string name="chongzhi">充值</string>
+</resources>

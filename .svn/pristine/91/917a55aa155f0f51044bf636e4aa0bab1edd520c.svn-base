@@ -1,0 +1,60 @@
+package com.example.nappy.test;
+
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.view.View;
+
+import com.example.nappy.R;
+import com.example.nappy.inter.NetworkOnResult;
+import com.example.nappy.network.NetRequest;
+import com.example.nappy.view.ZoomImageView;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+public class TestActivity extends AppCompatActivity {
+
+    private static final String TAG = "TestActivity";
+    private ZoomImageView mIdImg;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_test);
+        findViewById(R.id.btn_test_).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    JSONObject jsonObject = new JSONObject();
+                    jsonObject.put("car_number", "鲁B10001");
+                    new NetRequest("single.violation")
+                            .setJsonBody(jsonObject)
+                            .setNetworkOnResult(new NetworkOnResult() {
+
+                                @Override
+                                public void onSuccess(JSONObject jsonObject) {
+                                    Log.i(TAG, "onSuccess: " + jsonObject);
+                                }
+
+                                @Override
+                                public void onError() {
+                                    Log.i(TAG, "onError: ");
+                                }
+                            });
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        initView();
+        Bitmap bitmap= BitmapFactory.decodeResource(getResources(),R.mipmap.ic_launcher);
+        mIdImg.setImage(bitmap);
+    }
+
+    private void initView() {
+        mIdImg = (ZoomImageView) findViewById(R.id.id_img);
+    }
+}

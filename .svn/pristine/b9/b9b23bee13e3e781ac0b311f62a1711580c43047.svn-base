@@ -1,0 +1,125 @@
+package com.example.nappy.ui.activity;
+
+import android.graphics.Color;
+import android.os.Bundle;
+import android.os.Message;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v4.widget.SlidingPaneLayout;
+import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import com.example.nappy.R;
+import com.example.nappy.ui.fragment.AccountMangerFragment;
+import com.example.nappy.ui.fragment.BusFindFragment;
+import com.example.nappy.ui.fragment.IllegalFragment;
+import com.example.nappy.ui.fragment.LeftMenuFragment;
+import com.example.nappy.ui.fragment.TrafficQueryFragment;
+
+/**
+ * Created by liufangya on 2017/10/11.
+ */
+public class MainActivity extends AppCompatActivity implements
+        LeftMenuFragment.MenuItemSelect,
+        TrafficQueryFragment.OnFragmentInteractionListener ,
+        AccountMangerFragment.OnFragmentInteractionListener{
+
+    private SlidingPaneLayout mSplMenu;
+    private TextView mTvTitle;
+    private ImageView mImgOpenMenu;
+    private LinearLayout mLlTitle;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        getSupportActionBar().hide();
+        initView();
+        initFragment();
+        initEvent();
+    }
+
+    private void initFragment() {
+        getSupportFragmentManager().
+                beginTransaction().
+                add(R.id.fl_fragment_menu, new LeftMenuFragment())
+                .commit();
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fl_mian,new AccountMangerFragment())
+                .commit();
+    }
+
+    private void initEvent() {
+        mImgOpenMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mSplMenu.isOpen()) {
+                    mSplMenu.closePane();
+                } else {
+                    mSplMenu.openPane();
+                }
+            }
+        });
+    }
+
+    private void initView() {
+        mSplMenu = (SlidingPaneLayout) findViewById(R.id.spl_menu);
+        mSplMenu.setSliderFadeColor(Color.TRANSPARENT);
+        mTvTitle = (TextView) findViewById(R.id.tv_title);
+        mTvTitle.setText("智能交通");
+        mImgOpenMenu = (ImageView) findViewById(R.id.img_openMenu);
+        mLlTitle = (LinearLayout) findViewById(R.id.ll_title);
+    }
+
+
+    @Override
+    public void onFragmentInteraction(Object object) {
+
+    }
+
+    @Override
+    public void selectMenu(int select) {
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        mLlTitle.setVisibility(View.VISIBLE);
+        switch (select) {
+            case 0:
+                mTvTitle.setText("路况查询");
+                ft.replace(R.id.fl_mian, new TrafficQueryFragment());
+                break;
+            case 1:
+                mTvTitle.setText("车辆违章");
+                ft.replace(R.id.fl_mian, new IllegalFragment());
+                break;
+            case 2:
+                mTvTitle.setText("公交查询");
+                ft.replace(R.id.fl_mian, new BusFindFragment());
+                break;
+            case 3:
+                mLlTitle.setVisibility(View.GONE);
+                ft.replace(R.id.fl_mian,new AccountMangerFragment());
+                break;
+            case 4:
+                break;
+            case 5:
+                break;
+            default:
+                break;
+        }
+        ft.commit();
+    }
+
+    @Override
+    public void onFragmentInteraction(Message object) {
+        if (object.what==1){
+            //mLlTitle.setVisibility(View.VISIBLE);
+            if (mSplMenu.isOpen()) {
+                mSplMenu.closePane();
+            } else {
+                mSplMenu.openPane();
+            }
+        }
+    }
+}

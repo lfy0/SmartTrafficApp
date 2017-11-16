@@ -1,0 +1,50 @@
+package com.example.nappy.ui.fragment;
+
+
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
+import com.example.nappy.R;
+
+/**
+ * A simple {@link CreativeFragment} subclass.
+ */
+public class CreativeFragment extends Fragment {
+
+
+    public CreativeFragment() {
+
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.fragment_creative, container, false);
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        showPromptDialog();
+    }
+
+    public void showPromptDialog(){
+        final AlertDialog.Builder alertDialog=new AlertDialog.Builder(getActivity());
+        alertDialog.setTitle("创意题说明");
+        alertDialog.setMessage("模拟智能交通沙盘的小车运行,模拟交通路况的运行。");
+        alertDialog.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                alertDialog.create().dismiss();
+            }
+        });
+        alertDialog.show();
+    }
+
+}

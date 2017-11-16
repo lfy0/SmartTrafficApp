@@ -1,0 +1,178 @@
+package com.example.nappy.ui.activity;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ImageView;
+import android.widget.ListView;
+
+import com.example.nappy.R;
+import com.example.nappy.adapter.FindInfoItem1Adapter;
+import com.example.nappy.adapter.FindSelectInfoInfosAdapter;
+import com.example.nappy.app.AppClient;
+import com.example.nappy.beans.FaKuanInfoBean;
+import com.example.nappy.beans.FindInfoBean;
+import com.example.nappy.inter.NetworkOnResult;
+import com.example.nappy.network.NetRequest;
+import com.google.gson.Gson;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static com.example.nappy.app.AppClient.listInfos;
+
+/**
+ * 路况信息查询
+ */
+public class QueryResultsActivity extends AppCompatActivity implements FindInfoItem1Adapter.OnRemoveClickListerer {
+
+    private String infoText;
+    private static final String TAG = "QueryResultsActivity";
+
+    private ImageView mIvAddbutton;
+    private ListView mLvFindList;
+    private ListView mLvFindListInfo;
+//    private List<FindInfoBean> lists;
+//    private List<List<FaKuanInfoBean>> listInfos;
+    private FindInfoItem1Adapter findInfoItem1Adapter;
+    private FindSelectInfoInfosAdapter findSelectInfoInfosAdapter;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_query_results);
+        getSupportActionBar().hide();
+        getInfo();
+        initView();
+        //initData();
+        initText();
+        initEvent();
+    }
+
+    private void log() {
+        Log.i(TAG, "log: "+AppClient.listInfos.size());
+        for (int i = 0; i <AppClient.listInfos.size(); i++) {
+            Log.i(TAG, "log: "+AppClient.listInfos.get(i));
+        }
+    }
+
+    private void initEvent() {
+        mLvFindList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Log.i(TAG, "onItemClick: "+position+ listInfos.get(position).toString());
+                List<FaKuanInfoBean> infos= listInfos.get(position);
+                findSelectInfoInfosAdapter.setObjects(infos);
+                findSelectInfoInfosAdapter.notifyDataSetChanged();
+            }
+        });
+        mLvFindListInfo.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                QueryResultsActivity.this.finish();
+                startActivity(new Intent(QueryResultsActivity.this,IllegalImageActivity.class));
+            }
+        });
+        mIvAddbutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                QueryResultsActivity.this.finish();
+            }
+        });
+    }
+
+    private void initList() {
+        findInfoItem1Adapter=
+                new FindInfoItem1Adapter(this,AppClient.lists);
+        mLvFindList.setAdapter(findInfoItem1Adapter);
+        findInfoItem1Adapter.setOnRemoveClickListerer(this);
+        findSelectInfoInfosAdapter=new FindSelectInfoInfosAdapter(this, AppClient.listInfos.get(0));
+        mLvFindListInfo.setAdapter(findSelectInfoInfosAdapter);
+    }
+
+    private void initData() {
+        AppClient.lists=new ArrayList<>();
+        listInfos=new ArrayList<>();
+    }
+
+    private void initText() {
+            final JSONObject jsonObj=new JSONObject();
+            try {
+                jsonObj.put("car_number","鲁"+infoText);
+                new NetRequest("single.violation")
+                        .showDialog(this)
+                        .setJsonBody(jsonObj)
+                        .setNetworkOnResult(new NetworkOnResult() {
+                            @Override
+                            public void onSuccess(JSONObject jsonObject) {
+                                    try {
+                                        if ("成功".equals(jsonObject.getString("response"))){
+                                            jsonObject=jsonObject.getJSONObject("result");
+                                            //解析json得到实体
+                                            FindInfoBean findInfoBean=new Gson().fromJson(jsonObject.toString(), FindInfoBean.class);
+                                            AppClient.lists.add(findInfoBean);
+                                            JSONArray jsonArr=jsonObject.getJSONArray("infos");
+                                            ArrayList<FaKuanInfoBean> info=new ArrayList<>();
+                                            Log.i(TAG, "onSuccess: "+jsonObject);
+                                            if (info==null){
+                                                AppClient.listInfos.add(info);
+                                            }else {
+                                                for (int i = 0; i <jsonArr.length(); i++) {
+                                                    JSONObject jsonObjects=jsonArr.getJSONObject(i);
+                                                    FaKuanInfoBean faKuanInfoBean=new Gson().fromJson(jsonObjects.toString(), FaKuanInfoBean.class);
+                                                    Log.i(TAG, "onSuccess: "+faKuanInfoBean.toString());
+                                                    info.add(faKuanInfoBean);
+                                                }
+                                                AppClient.listInfos.add(info);
+                                            }
+                                            log();
+                                        }
+                                        initList();
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                                @Override
+                                public void onError() {
+
+                                }
+                            });
+            } catch (JSONException e) {
+                    e.printStackTrace();
+            }
+    }
+
+    /**
+     * 获取跳转后携带的信息
+     */
+    public void getInfo() {
+        Intent intent = getIntent();
+        infoText = intent.getStringExtra("findInfo");
+    }
+
+    private void initView() {
+        mIvAddbutton = (ImageView) findViewById(R.id.iv_addbutton);
+        mLvFindList = (ListView) findViewById(R.id.lv_find_list);
+        mLvFindListInfo = (ListView) findViewById(R.id.lv_find_list_info);
+    }
+
+    /**
+     * 移除条目回调
+     * @param pos
+     */
+    @Override
+    public void OnRemoveClick(int pos) {
+        Log.i(TAG, "OnRemoveClick: "+pos);
+        AppClient.lists.remove(pos);
+        AppClient.listInfos.remove(pos);
+        findInfoItem1Adapter.setObjects(AppClient.lists);
+        findInfoItem1Adapter.notifyDataSetChanged();
+    }
+}

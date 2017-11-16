@@ -1,0 +1,22 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    tools:context="com.example.nappy.ui.fragment.Chart2Fragment">
+
+    <TextView
+        android:textColor="@color/colorText"
+        android:layout_marginTop="10dp"
+        android:text="有无“重复违章记录的车辆”的占比统计"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <com.github.mikephil.charting.charts.PieChart
+        android:id="@+id/pc_chart1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </com.github.mikephil.charting.charts.PieChart>
+
+</LinearLayout>

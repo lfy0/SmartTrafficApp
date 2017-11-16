@@ -1,0 +1,18 @@
+[
+    {
+        "merged": "D:\\nongye\\Nappy\\app\\build\\intermediates\\res\\merged\\debug\\layout-v21\\notification_action.xml",
+        "source": "C:\\Users\\李常胜\\.android\\build-cache\\fc827a77bda896fc12d4d1e4e3aa2365908d0d55\\output\\res\\layout-v21\\notification_action.xml"
+    },
+    {
+        "merged": "D:\\nongye\\Nappy\\app\\build\\intermediates\\res\\merged\\debug\\layout-v21\\notification_action_tombstone.xml",
+        "source": "C:\\Users\\李常胜\\.android\\build-cache\\fc827a77bda896fc12d4d1e4e3aa2365908d0d55\\output\\res\\layout-v21\\notification_action_tombstone.xml"
+    },
+    {
+        "merged": "D:\\nongye\\Nappy\\app\\build\\intermediates\\res\\merged\\debug\\layout-v21\\notification_template_icon_group.xml",
+        "source": "C:\\Users\\李常胜\\.android\\build-cache\\fc827a77bda896fc12d4d1e4e3aa2365908d0d55\\output\\res\\layout-v21\\notification_template_icon_group.xml"
+    },
+    {
+        "merged": "D:\\nongye\\Nappy\\app\\build\\intermediates\\res\\merged\\debug\\layout-v21\\notification_template_custom_big.xml",
+        "source": "C:\\Users\\李常胜\\.android\\build-cache\\fc827a77bda896fc12d4d1e4e3aa2365908d0d55\\output\\res\\layout-v21\\notification_template_custom_big.xml"
+    }
+]

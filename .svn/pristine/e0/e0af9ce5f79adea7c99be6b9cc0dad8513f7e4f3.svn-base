@@ -1,0 +1,18 @@
+[
+    {
+        "merged": "D:\\nongye\\Nappy\\app\\build\\intermediates\\res\\merged\\debug\\drawable-v21\\notification_action_background.xml",
+        "source": "C:\\Users\\李常胜\\.android\\build-cache\\fc827a77bda896fc12d4d1e4e3aa2365908d0d55\\output\\res\\drawable-v21\\notification_action_background.xml"
+    },
+    {
+        "merged": "D:\\nongye\\Nappy\\app\\build\\intermediates\\res\\merged\\debug\\drawable-v21\\abc_edit_text_material.xml",
+        "source": "C:\\Users\\李常胜\\.android\\build-cache\\fc827a77bda896fc12d4d1e4e3aa2365908d0d55\\output\\res\\drawable-v21\\abc_edit_text_material.xml"
+    },
+    {
+        "merged": "D:\\nongye\\Nappy\\app\\build\\intermediates\\res\\merged\\debug\\drawable-v21\\abc_action_bar_item_background_material.xml",
+        "source": "C:\\Users\\李常胜\\.android\\build-cache\\fc827a77bda896fc12d4d1e4e3aa2365908d0d55\\output\\res\\drawable-v21\\abc_action_bar_item_background_material.xml"
+    },
+    {
+        "merged": "D:\\nongye\\Nappy\\app\\build\\intermediates\\res\\merged\\debug\\drawable-v21\\abc_btn_colored_material.xml",
+        "source": "C:\\Users\\李常胜\\.android\\build-cache\\fc827a77bda896fc12d4d1e4e3aa2365908d0d55\\output\\res\\drawable-v21\\abc_btn_colored_material.xml"
+    }
+]

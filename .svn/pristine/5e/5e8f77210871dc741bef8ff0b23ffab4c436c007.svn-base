@@ -1,0 +1,33 @@
+package com.example.nappy.app;
+
+import android.app.Application;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
+import android.util.Log;
+
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.Volley;
+
+/**
+ * Created by liufangya on 2017/10/12.
+ */
+
+public class AppClient extends Application {
+
+    private static final String TAG = "AppClient";
+
+    private static RequestQueue mQueue;
+
+    private SharedPreferences mSharedPreferences;
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        mQueue= Volley.newRequestQueue(this);
+        mSharedPreferences= PreferenceManager.getDefaultSharedPreferences(this);
+    }
+
+    public static  RequestQueue getRequestQueue(){
+        return mQueue;
+    }
+}

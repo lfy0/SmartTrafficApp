@@ -1,0 +1,121 @@
+package com.example.nappy.ui.fragment;
+
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
+import com.example.nappy.R;
+
+import java.util.ArrayList;
+import java.util.List;
+
+
+public class PersonalCenterFragment extends Fragment {
+
+    private static final String TAG = "PersonalCenterFragment";
+
+
+    private ViewPager mVpContext;
+    private List<Fragment> list;
+    private TabLayout mTlTabSelect;
+
+
+
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.fragment_personal_center, container, false);
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        initView();
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        Log.i(TAG, "onActivityCreated: ");
+        initViewPager();
+        initAddTabs();
+    }
+
+    private void initAddTabs() {
+        // TODO: 2017/10/20 切换时直接跳转 修改下划线样式
+        mTlTabSelect.setTabMode(TabLayout.MODE_FIXED);
+        mTlTabSelect.setupWithViewPager(mVpContext);
+        if (getSet()){
+            mVpContext.setCurrentItem(1,false);
+        }
+    }
+
+    private void initViewPager() {
+        list= new ArrayList<>();
+        list.add(new PersonInfoFragment());
+        list.add(new TopUpLogFragment());
+        list.add(new ThresholdSettingFragment());
+        mVpContext.setAdapter(
+                new FragmentAdapter(getChildFragmentManager()));//Fragment中嵌套Fragment碎片管理器，应使用getChildFragmentManager()
+
+    }
+
+    private boolean getSet(){
+        Bundle bundle=getArguments();
+        if (bundle==null)
+            return false;
+        int i=bundle.getInt("key");
+        if (i==1){
+           return true;
+        }else {
+            return false;
+        }
+    }
+
+
+
+    private void initView() {
+        mVpContext = (ViewPager) getView().findViewById(R.id.vp_context);
+        mTlTabSelect = (TabLayout) getView().findViewById(R.id.tl_tab_select);
+    }
+
+
+    private class FragmentAdapter extends FragmentPagerAdapter {
+
+        private String[] titleArr = {"个人信息", "充值记录", "阀值设置"};
+
+        public FragmentAdapter(FragmentManager fm) {
+            super(fm);
+        }
+
+        @Override
+        public Fragment getItem(int i) {
+            return list.get(i);
+        }
+
+        @Override
+        public int getCount() {
+            return list.size();
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return titleArr[position];
+        }
+    }
+}

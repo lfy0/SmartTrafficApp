@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">智能交通</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="car_id">车牌号</string>
+    <string name="weichuliweizhang">未处理违章</string>
+    <string name="fakuan_2_250">扣2分罚款250元</string>
+    <string name="chuli">未处理</string>
+    <string name="xueyuanlu">学院路</string>
+    <string name="weizhsnag">违章信息</string>
+    <string name="koufen">扣分</string>
+    <string name="fakuan">罚款</string>
+    <string name="a10003">辽A10003</string>
+    <string name="chezhu">车主:李四</string>
+    <string name="_100">余额:100</string>
+    <string name="chongzhi">充值</string>
+    <string name="lukou">路口</string>
+    <string name="shongdengshichagn">红灯时长/s</string>
+    <string name="shuangdengshichang">黄灯时长/s</string>
+    <string name="lvdengshichang">绿灯时长/s</string>
+    <string name="chaozuoxiang">操作项</string>
+    <string name="setting">设置</string>
+    <string name="seting">设置</string>
+    <string name="time">充值时间</string>
+    <string name="zhiwaixian_100">中等(100)</string>
+    <string name="spf_15_pa">涂擦 SPF 大于 15、 PA+防晒护肤品</string>
+</resources>

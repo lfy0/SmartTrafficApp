@@ -1,0 +1,17 @@
+package com.example.nappy.util;
+
+import com.google.gson.Gson;
+
+import org.json.JSONObject;
+
+/**
+ * Created by liufangya on 2017/10/15.
+ */
+
+public class GsonUtil {
+
+    public void getJsonInfo(JSONObject jsonObj,Class clz){
+        Gson gson=new Gson();
+        gson.fromJson(jsonObj.toString(),clz);
+    }
+}

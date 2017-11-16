@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <include
+        layout="@layout/view_h"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="35dp">
+        <include
+            layout="@layout/view_v"/>
+        <TextView
+            android:gravity="center"
+            android:text="路口"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent" />
+        <include
+            layout="@layout/view_v"/>
+        <TextView
+            android:text="红灯时长/s"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent" /><include
+        layout="@layout/view_v"/>
+
+        <TextView
+            android:gravity="center"
+            android:text="黄灯时长/s"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
+        <include
+        layout="@layout/view_v"/>
+        <TextView
+            android:text="绿灯时长/s"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent" />
+        <include
+        layout="@layout/view_v"/>
+
+        <TextView
+            android:text="操作项"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center" />
+
+        <include
+        layout="@layout/view_v"/>
+        <TextView
+            android:text="设置"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent" />
+        <include
+            layout="@layout/view_v"/>
+    </LinearLayout>
+    <include
+        layout="@layout/view_h"/>
+</LinearLayout>

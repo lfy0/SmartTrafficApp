@@ -1,0 +1,82 @@
+package com.example.nappy.network;
+
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.example.nappy.app.AppClient;
+import com.example.nappy.app.AppConfig;
+import com.example.nappy.inter.NetworkOnResult;
+
+import org.json.JSONObject;
+
+
+/**
+ * Created by liufangya on 2017/10/11.
+ */
+
+public class  NetRequest extends Thread {
+
+    private static final String TAG = "NetRequest";
+    private String url="http://172.16.14.56:8080/transportservice/";
+    private JSONObject jsonBody;
+    private String action;
+    private NetworkOnResult networkOnResult;
+    private boolean isLoop=false;
+    private long loopTime=1000;
+
+
+    public NetRequest(String action){
+       this.action=action;
+    }
+
+    public NetRequest setJsonBody(JSONObject jsonBody) {
+        this.jsonBody = jsonBody;
+        return this;
+    }
+
+    public void setNetworkOnResult(NetworkOnResult networkOnResult) {
+        this.networkOnResult = networkOnResult;
+        start();
+    }
+
+    public NetRequest setLoop(boolean loop) {
+        isLoop = loop;
+        return this;
+    }
+
+    public NetRequest setLoopTime(long loopTime) {
+        this.loopTime = loopTime;
+        return this;
+    }
+
+    public void request(){
+        JsonObjectRequest jsonRequest=new JsonObjectRequest(Request.Method.POST,
+                AppConfig.URL+action, jsonBody,new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject jsonObject){
+                networkOnResult.onSuccess(jsonObject);
+            }
+
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError volleyError) {
+                networkOnResult.onError();
+            }
+        });
+        AppClient.getRequestQueue().add(jsonRequest);
+    }
+
+    @Override
+    public void run() {
+        super.run();
+        do {
+            request();
+            try {
+                Thread.sleep(loopTime);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }while (isLoop);
+    }
+}

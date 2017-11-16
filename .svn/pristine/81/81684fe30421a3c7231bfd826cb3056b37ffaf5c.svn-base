@@ -1,0 +1,87 @@
+-- Merging decision tree log ---
+manifest
+ADDED from D:\nongye\Nappy\app\src\main\AndroidManifest.xml:2:1-21:12
+	package
+		ADDED from D:\nongye\Nappy\app\src\main\AndroidManifest.xml:3:5-32
+		INJECTED from D:\nongye\Nappy\app\src\main\AndroidManifest.xml
+		INJECTED from D:\nongye\Nappy\app\src\main\AndroidManifest.xml
+	android:versionName
+		INJECTED from D:\nongye\Nappy\app\src\main\AndroidManifest.xml
+		INJECTED from D:\nongye\Nappy\app\src\main\AndroidManifest.xml
+	xmlns:android
+		ADDED from D:\nongye\Nappy\app\src\main\AndroidManifest.xml:2:11-69
+	android:versionCode
+		INJECTED from D:\nongye\Nappy\app\src\main\AndroidManifest.xml
+		INJECTED from D:\nongye\Nappy\app\src\main\AndroidManifest.xml
+application
+ADDED from D:\nongye\Nappy\app\src\main\AndroidManifest.xml:5:5-19:19
+MERGED from [com.android.support:appcompat-v7:26.0.0-alpha1] C:\Users\李常胜\.android\build-cache\fc827a77bda896fc12d4d1e4e3aa2365908d0d55\output\AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:support-v4:26.0.0-alpha1] C:\Users\李常胜\.android\build-cache\05c145bd0794eb91cb1411b29d11e952b7beaedf\output\AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:support-media-compat:26.0.0-alpha1] C:\Users\李常胜\.android\build-cache\542e2f21af0125c727cc1bcff2baf39e0581dd27\output\AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:support-fragment:26.0.0-alpha1] C:\Users\李常胜\.android\build-cache\dfca705f527cefc7ee69596bdd2cea04591bc874\output\AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:support-core-ui:26.0.0-alpha1] C:\Users\李常胜\.android\build-cache\e54ada06104706f7d50e977d323d2555908b1902\output\AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:support-core-utils:26.0.0-alpha1] C:\Users\李常胜\.android\build-cache\e6bf8fdb6fe6ded02c17cb860e85760f5f65c81c\output\AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:animated-vector-drawable:26.0.0-alpha1] C:\Users\李常胜\.android\build-cache\f57dce2386d1d29b1822d0c0337c04a93dc0ba33\output\AndroidManifest.xml:26:5-20
+MERGED from [com.android.support:support-vector-drawable:26.0.0-alpha1] C:\Users\李常胜\.android\build-cache\df064d28855e23ae18b16247bb1ed0293e1d6cf6\output\AndroidManifest.xml:26:5-20
+MERGED from [com.android.support:support-compat:26.0.0-alpha1] C:\Users\李常胜\.android\build-cache\c7df7f729f1719bafa23bcd51dd0354e7fb847ce\output\AndroidManifest.xml:29:5-20
+MERGED from [com.android.support.constraint:constraint-layout:1.0.2] C:\Users\李常胜\.android\build-cache\6807fadfd1f9bf27338b04ee4883202bd485f024\output\AndroidManifest.xml:9:5-20
+	android:label
+		ADDED from D:\nongye\Nappy\app\src\main\AndroidManifest.xml:8:9-41
+	android:supportsRtl
+		ADDED from D:\nongye\Nappy\app\src\main\AndroidManifest.xml:10:9-35
+	android:roundIcon
+		ADDED from D:\nongye\Nappy\app\src\main\AndroidManifest.xml:9:9-54
+	android:allowBackup
+		ADDED from D:\nongye\Nappy\app\src\main\AndroidManifest.xml:6:9-35
+	android:icon
+		ADDED from D:\nongye\Nappy\app\src\main\AndroidManifest.xml:7:9-43
+	android:theme
+		ADDED from D:\nongye\Nappy\app\src\main\AndroidManifest.xml:11:9-40
+activity#com.example.nappy.MainActivity
+ADDED from D:\nongye\Nappy\app\src\main\AndroidManifest.xml:12:9-18:20
+	android:name
+		ADDED from D:\nongye\Nappy\app\src\main\AndroidManifest.xml:12:19-47
+intent-filter#android.intent.action.MAIN+android.intent.category.LAUNCHER
+ADDED from D:\nongye\Nappy\app\src\main\AndroidManifest.xml:13:13-17:29
+action#android.intent.action.MAIN
+ADDED from D:\nongye\Nappy\app\src\main\AndroidManifest.xml:14:17-69
+	android:name
+		ADDED from D:\nongye\Nappy\app\src\main\AndroidManifest.xml:14:25-66
+category#android.intent.category.LAUNCHER
+ADDED from D:\nongye\Nappy\app\src\main\AndroidManifest.xml:16:17-77
+	android:name
+		ADDED from D:\nongye\Nappy\app\src\main\AndroidManifest.xml:16:27-74
+uses-sdk
+INJECTED from D:\nongye\Nappy\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
+MERGED from [com.android.support:appcompat-v7:26.0.0-alpha1] C:\Users\李常胜\.android\build-cache\fc827a77bda896fc12d4d1e4e3aa2365908d0d55\output\AndroidManifest.xml:21:5-23:78
+MERGED from [com.android.support:support-v4:26.0.0-alpha1] C:\Users\李常胜\.android\build-cache\05c145bd0794eb91cb1411b29d11e952b7beaedf\output\AndroidManifest.xml:21:5-23:54
+MERGED from [com.android.support:support-media-compat:26.0.0-alpha1] C:\Users\李常胜\.android\build-cache\542e2f21af0125c727cc1bcff2baf39e0581dd27\output\AndroidManifest.xml:21:5-23:63
+MERGED from [com.android.support:support-fragment:26.0.0-alpha1] C:\Users\李常胜\.android\build-cache\dfca705f527cefc7ee69596bdd2cea04591bc874\output\AndroidManifest.xml:21:5-23:60
+MERGED from [com.android.support:support-core-ui:26.0.0-alpha1] C:\Users\李常胜\.android\build-cache\e54ada06104706f7d50e977d323d2555908b1902\output\AndroidManifest.xml:21:5-23:58
+MERGED from [com.android.support:support-core-utils:26.0.0-alpha1] C:\Users\李常胜\.android\build-cache\e6bf8fdb6fe6ded02c17cb860e85760f5f65c81c\output\AndroidManifest.xml:21:5-23:61
+MERGED from [com.android.support:animated-vector-drawable:26.0.0-alpha1] C:\Users\李常胜\.android\build-cache\f57dce2386d1d29b1822d0c0337c04a93dc0ba33\output\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-vector-drawable:26.0.0-alpha1] C:\Users\李常胜\.android\build-cache\df064d28855e23ae18b16247bb1ed0293e1d6cf6\output\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-compat:26.0.0-alpha1] C:\Users\李常胜\.android\build-cache\c7df7f729f1719bafa23bcd51dd0354e7fb847ce\output\AndroidManifest.xml:21:5-23:58
+MERGED from [com.android.support.constraint:constraint-layout:1.0.2] C:\Users\李常胜\.android\build-cache\6807fadfd1f9bf27338b04ee4883202bd485f024\output\AndroidManifest.xml:5:5-7:41
+	tools:overrideLibrary
+		ADDED from [com.android.support:appcompat-v7:26.0.0-alpha1] C:\Users\李常胜\.android\build-cache\fc827a77bda896fc12d4d1e4e3aa2365908d0d55\output\AndroidManifest.xml:23:9-75
+	android:targetSdkVersion
+		INJECTED from D:\nongye\Nappy\app\src\main\AndroidManifest.xml
+		INJECTED from D:\nongye\Nappy\app\src\main\AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from D:\nongye\Nappy\app\src\main\AndroidManifest.xml
+		INJECTED from D:\nongye\Nappy\app\src\main\AndroidManifest.xml
+meta-data#android.support.VERSION
+ADDED from [com.android.support:appcompat-v7:26.0.0-alpha1] C:\Users\李常胜\.android\build-cache\fc827a77bda896fc12d4d1e4e3aa2365908d0d55\output\AndroidManifest.xml:25:5-27:41
+MERGED from [com.android.support:support-v4:26.0.0-alpha1] C:\Users\李常胜\.android\build-cache\05c145bd0794eb91cb1411b29d11e952b7beaedf\output\AndroidManifest.xml:25:5-27:41
+MERGED from [com.android.support:support-media-compat:26.0.0-alpha1] C:\Users\李常胜\.android\build-cache\542e2f21af0125c727cc1bcff2baf39e0581dd27\output\AndroidManifest.xml:25:5-27:41
+MERGED from [com.android.support:support-fragment:26.0.0-alpha1] C:\Users\李常胜\.android\build-cache\dfca705f527cefc7ee69596bdd2cea04591bc874\output\AndroidManifest.xml:25:5-27:41
+MERGED from [com.android.support:support-core-ui:26.0.0-alpha1] C:\Users\李常胜\.android\build-cache\e54ada06104706f7d50e977d323d2555908b1902\output\AndroidManifest.xml:25:5-27:41
+MERGED from [com.android.support:support-core-utils:26.0.0-alpha1] C:\Users\李常胜\.android\build-cache\e6bf8fdb6fe6ded02c17cb860e85760f5f65c81c\output\AndroidManifest.xml:25:5-27:41
+MERGED from [com.android.support:animated-vector-drawable:26.0.0-alpha1] C:\Users\李常胜\.android\build-cache\f57dce2386d1d29b1822d0c0337c04a93dc0ba33\output\AndroidManifest.xml:22:5-24:41
+MERGED from [com.android.support:support-vector-drawable:26.0.0-alpha1] C:\Users\李常胜\.android\build-cache\df064d28855e23ae18b16247bb1ed0293e1d6cf6\output\AndroidManifest.xml:22:5-24:41
+MERGED from [com.android.support:support-compat:26.0.0-alpha1] C:\Users\李常胜\.android\build-cache\c7df7f729f1719bafa23bcd51dd0354e7fb847ce\output\AndroidManifest.xml:25:5-27:41
+	android:value
+		ADDED from [com.android.support:appcompat-v7:26.0.0-alpha1] C:\Users\李常胜\.android\build-cache\fc827a77bda896fc12d4d1e4e3aa2365908d0d55\output\AndroidManifest.xml:27:9-38
+	android:name
+		ADDED from [com.android.support:appcompat-v7:26.0.0-alpha1] C:\Users\李常胜\.android\build-cache\fc827a77bda896fc12d4d1e4e3aa2365908d0d55\output\AndroidManifest.xml:26:9-47

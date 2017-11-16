@@ -1,0 +1,79 @@
+package com.example.nappy.ui.fragment;
+
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.text.TextUtils;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.example.nappy.R;
+import com.example.nappy.app.AppClient;
+
+/**
+ * TabHost阀值设置
+ */
+public class ThresholdSettingFragment extends Fragment {
+
+
+    private TextView mTvGetYuzi;
+    private EditText mEtSetYuzi;
+    private Button mBtnSetting;
+
+    public ThresholdSettingFragment() {
+
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.fragment_threshold_setting, container, false);
+
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        initView();
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        initData();
+        initEvent();
+    }
+
+    private void initEvent() {
+        mBtnSetting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String money=mEtSetYuzi.getText().toString().trim();
+                if (!TextUtils.isEmpty(money)){
+                    AppClient.setInt("money",Integer.parseInt(money));
+                    initData();
+                    Toast.makeText(getActivity(), "设置成功", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+
+    private void initData() {
+        int money=AppClient.getInt("money");
+        if (money==0){
+            mTvGetYuzi.setText("当前 1-4 号小车账户余额告警阈值未设置!");
+        }else {
+            mTvGetYuzi.setText("当前 1-4 号小车账户余额告警阈值为"+money+"元");
+        }
+    }
+    private void initView() {
+        mTvGetYuzi = (TextView) getView().findViewById(R.id.tv_get_yuzi);
+        mEtSetYuzi = (EditText) getView().findViewById(R.id.et_set_yuzi);
+        mBtnSetting = (Button) getView().findViewById(R.id.btn_setting);
+    }
+}

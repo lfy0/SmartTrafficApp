@@ -1,0 +1,140 @@
+<AbsoluteLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/traffic"
+    tools:context="com.example.nappy.ui.fragment.TrafficQueryFragment">
+
+    <TextView
+        android:id="@+id/tv_traffic_huacheng1"
+        style="@style/TrafficStyle"
+        android:text="环城快速路"
+        android:layout_width="300dp"
+        android:layout_height="8dp"
+        android:layout_y="17dp"
+        android:layout_x="19dp"/>
+
+    <TextView
+        android:id="@+id/tv_traffic_huacheng2"
+        style="@style/TrafficStyle"
+        android:text="环城快速路"
+        android:layout_width="300dp"
+        android:layout_height="8dp"
+        android:layout_y="264dp"
+        android:layout_x="19dp"/>
+
+    <TextView
+        android:id="@+id/tv_traffic_huacheng3"
+        android:text="环城快速路"
+        style="@style/TrafficStyle"
+        android:layout_width="8dp"
+        android:layout_height="255dp"
+        android:layout_x="18dp"
+        android:layout_y="17dp"/>
+    <TextView
+        android:id="@+id/tv_traffic_huacheng4"
+        android:text="环城高速路"
+        style="@style/TrafficStyle"
+        android:layout_width="8dp"
+        android:layout_height="255dp"
+        android:layout_x="313dp"
+        android:layout_y="17dp"/>
+
+
+
+    <TextView
+        android:id="@+id/tv_traffic_xueyuan"
+        android:text="学院路"
+        style="@style/TrafficStyle"
+        android:layout_width="8dp"
+        android:layout_height="115dp"
+        android:layout_x="94dp"
+        android:layout_y="25dp"/>
+    <TextView
+        android:id="@+id/tv_traffic_lianxiang"
+        android:text="联想路"
+        style="@style/TrafficStyle"
+        android:layout_width="8dp"
+        android:layout_height="115dp"
+        android:layout_x="166dp"
+        android:layout_y="25dp"/>
+
+    <TextView
+        android:id="@+id/tv_traffic_xingfu"
+        android:text="幸福路"
+        style="@style/TrafficStyle"
+        android:layout_width="8dp"
+        android:layout_height="115dp"
+        android:layout_x="94dp"
+        android:layout_y="150dp"/>
+    <TextView
+        android:id="@+id/tv_traffic_yiyuan"
+        android:text="医院路"
+        style="@style/TrafficStyle"
+        android:layout_width="8dp"
+        android:layout_height="115dp"
+        android:layout_x="166dp"
+        android:layout_y="150dp"/>
+
+    <TextView
+        android:text="停车场"
+        android:id="@+id/tv_traffic_tingchechang"
+        style="@style/TrafficStyle"
+        android:layout_width="50dp"
+        android:layout_height="76dp"
+        android:layout_x="219dp"
+        android:layout_y="106dp" />
+
+    <TextView
+        android:textSize="12dp"
+        android:id="@+id/text_wendu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="493dp"
+        android:layout_y="42dp"
+        android:text="温度" />
+
+    <TextView
+        android:textSize="12dp"
+        android:id="@+id/text_sidu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="491dp"
+        android:layout_y="64dp"
+        android:text="湿度" />
+
+    <TextView
+        android:textSize="12dp"
+        android:id="@+id/text_pm2_5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="493dp"
+        android:layout_y="87dp"
+        android:text="pm" />
+
+    <TextView
+        android:id="@+id/text_ymd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="383dp"
+        android:layout_y="39dp"
+        android:text="2017-6-7"
+        android:textSize="18dp" />
+
+    <TextView
+        android:id="@+id/text_week"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="393dp"
+        android:layout_y="70dp"
+        android:text="星期三"
+        android:textSize="18dp" />
+
+    <ImageView
+        android:id="@+id/iv_finshMap"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_x="547dp"
+        android:layout_y="13dp"
+        android:background="@drawable/finsh" />
+</AbsoluteLayout>

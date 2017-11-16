@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.SlidingPaneLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/spl_menu"
+    tools:context="com.example.nappy.ui.activity.MainActivity">
+    <LinearLayout
+        android:layout_width="300dp"
+        android:layout_height="match_parent">
+        <FrameLayout
+            android:id="@+id/fl_fragment_menu"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        </FrameLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <include
+            layout="@layout/title_layout"/>
+    </LinearLayout>
+</android.support.v4.widget.SlidingPaneLayout>

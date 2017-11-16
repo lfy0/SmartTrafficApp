@@ -1,0 +1,58 @@
+package com.example.nappy.ui.activity;
+
+import android.os.Bundle;
+import android.support.v4.widget.SlidingPaneLayout;
+import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.example.nappy.R;
+import com.example.nappy.ui.fragment.LeftMenuFragment;
+
+public class MainActivity extends AppCompatActivity {
+
+
+    private SlidingPaneLayout mSplMenu;
+    private TextView mTvTitle;
+    private ImageView mImgOpenMenu;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        getSupportActionBar().hide();
+        initView();
+        initFragment();
+
+        initEvent();
+    }
+
+    private void initFragment() {
+        getSupportFragmentManager().
+                beginTransaction().
+                add(R.id.fl_fragment_menu,new LeftMenuFragment()).commit();
+    }
+
+    private void initEvent() {
+        mImgOpenMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mSplMenu.isOpen()) {
+                    mSplMenu.closePane();
+                }else {
+                    mSplMenu.openPane();
+                }
+            }
+        });
+    }
+
+    private void initView() {
+        mSplMenu = (SlidingPaneLayout) findViewById(R.id.spl_menu);
+        mTvTitle = (TextView) findViewById(R.id.tv_title);
+        mImgOpenMenu = (ImageView) findViewById(R.id.img_openMenu);
+        findViewById(R.id.lv_list);
+    }
+
+
+}

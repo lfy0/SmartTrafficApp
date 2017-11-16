@@ -1,0 +1,23 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:background="@drawable/menu_icon1"
+    tools:context="com.example.nappy.ui.fragment.LeftMenuFragment">
+
+    <ImageView
+        android:background="@drawable/home_icon"
+        android:layout_margin="5dp"
+        android:id="@+id/imageView"
+        android:layout_width="80dp"
+        android:layout_height="80dp" />
+
+    <ListView
+        android:id="@+id/lv_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </ListView>
+
+</LinearLayout>

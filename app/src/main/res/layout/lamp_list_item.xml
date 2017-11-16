@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="35dp">
+        <include
+            layout="@layout/view_v"/>
+        <TextView
+            android:id="@+id/tv_lamp_lukou"
+            android:gravity="center"
+            android:text="@string/lukou"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent" />
+        <include
+            layout="@layout/view_v"/>
+        <TextView
+            android:id="@+id/tv_lamp_hongdeng"
+            android:text="@string/shongdengshichagn"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent" /><include
+        layout="@layout/view_v"/>
+
+        <TextView
+            android:id="@+id/tv_lamp_huangdeng"
+            android:gravity="center"
+            android:text="@string/shuangdengshichang"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
+        <include
+        layout="@layout/view_v"/>
+        <TextView
+            android:id="@+id/tv_lamp_lvdeng"
+            android:text="@string/lvdengshichang"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent" />
+        <include
+        layout="@layout/view_v"/>
+
+        <RelativeLayout
+            android:layout_weight="1"
+            android:gravity="center"
+            android:layout_width="0dp"
+            android:layout_height="match_parent">
+            <CheckBox
+                android:id="@+id/cb_control_chaozuo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </RelativeLayout>
+
+        <include
+        layout="@layout/view_v"/>
+
+        <RelativeLayout
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent">
+            <Button
+                android:textSize="12dp"
+                android:id="@+id/btn_lamp_setting"
+                android:layout_centerInParent="true"
+                android:text="@string/seting"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </RelativeLayout>
+        <include
+            layout="@layout/view_v"/>
+    </LinearLayout>
+    <include
+        layout="@layout/view_h"/>
+</LinearLayout>

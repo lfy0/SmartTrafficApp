@@ -1,0 +1,392 @@
+package com.example.nappy.ui.fragment;
+
+import android.graphics.Color;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.GridView;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import com.example.nappy.R;
+import com.example.nappy.adapter.LifeItemAdapter;
+import com.example.nappy.beans.LifeBean;
+import com.example.nappy.beans.LifeInfoBean;
+import com.example.nappy.beans.TemperatureRangeBean;
+import com.example.nappy.inter.NetworkOnResult;
+import com.example.nappy.network.NetRequest;
+import com.example.nappy.util.LifeUtils;
+import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.Legend;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
+import com.google.gson.Gson;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * 生活助手界面
+ */
+public class LifeAssistantFragment extends Fragment {
+
+    private static final String TAG = "LifeAssistantFragment";
+
+    public static final int SEND_TEXT=0x01;
+    private TextView mTvLifeCo;
+    private TextView mTvLifeInfo;
+    private ImageView mIvLifeFinsh;
+    private LineChart mLcWenduTable;
+    private GridView mHsvList;
+    private ViewPager mVpTable;
+    private TextView mTvPmTextInfo;
+
+    private float xMaxValue[];
+    private float xMinValue[];
+    private List<LifeBean> lifeBeens;
+
+    private Fragment fragments[];
+
+    private int icons[] = {R.drawable.zhiwaixianzhishu, R.drawable.ganmaozhisu, R.drawable.chuanyizhisu,
+            R.drawable.yundongzhisu, R.drawable.kongqiwurankuoanzhisu};
+
+
+    private Handler handler = new Handler(new Handler.Callback() {
+        @Override
+        public boolean handleMessage(Message msg) {
+            if (msg.what == SEND_TEXT) {
+                String obj = (String) msg.obj;
+                mTvPmTextInfo.setText(obj);
+            }
+            return false;
+        }
+    });
+    private LinearLayout mLlIndicator;
+
+    public LifeAssistantFragment() {
+
+    }
+
+    private LifeItemAdapter lifeItemAdapter;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.fragment_life_assistant, container, false);
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        initView();
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        initData();
+        initTemperatureData();
+        initLineData();
+        initLifeData();
+        initAdapter();
+        initEvent();
+        initIndicator(0);
+    }
+
+    private void initIndicator(int index) {
+        for (int i = 0; i <mLlIndicator.getChildCount(); i++) {
+            final int j=i;
+            View view=mLlIndicator.getChildAt(i);
+            if (i==index){
+                view.setBackgroundResource(R.drawable.text_back);
+            }else {
+               view.setBackgroundColor(Color.TRANSPARENT);
+            }
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mVpTable.setCurrentItem(j,false);
+                }
+            });
+        }
+    }
+
+    private void initLifeData() {
+        new NetRequest("sensor.live")
+                .setNetworkOnResult(new NetworkOnResult() {
+                    @Override
+                    public void onSuccess(JSONObject jsonObject) {
+                        Log.i(TAG, "onSuccess: " + jsonObject);
+                        try {
+                            if ("成功".equals(jsonObject.getString("response"))) {
+                                JSONObject jsonObj = jsonObject.getJSONObject("result");
+                                LifeInfoBean lifeInfoBean = new Gson().fromJson(jsonObj.toString(), LifeInfoBean.class);
+                                lifeBeens = LifeUtils.getLifeUtils(lifeInfoBean);
+                                Log.i(TAG, "onSuccess: " + lifeBeens);
+                                lifeItemAdapter.setObjects(lifeBeens);
+                                lifeItemAdapter.notifyDataSetChanged();
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onError() {
+
+                    }
+                });
+    }
+
+    private void initAdapter() {
+        lifeItemAdapter = new LifeItemAdapter(getActivity(), lifeBeens);
+        mHsvList.setAdapter(lifeItemAdapter);
+        mVpTable.setAdapter(new ScollTableAdapter(getChildFragmentManager()));
+    }
+
+    private PM2_5Fragment pm2_5Fragment = new PM2_5Fragment(handler);
+    private TemperatureFragment temperatureFragment = new TemperatureFragment(handler);
+    private LightFragment lightFragment1 = new LightFragment(handler);
+    private Co2Fragment co2Fragment = new Co2Fragment(handler);
+    private void initData() {
+        fragments = new Fragment[]{
+                pm2_5Fragment,
+                temperatureFragment,
+                lightFragment1,
+                co2Fragment};
+        xMaxValue = new float[6];
+        xMinValue = new float[6];
+        lifeBeens = new ArrayList<>();
+    }
+
+    private void initLineData() {
+        new NetRequest("batch.live")
+                .setNetworkOnResult(new NetworkOnResult() {
+                    @Override
+                    public void onSuccess(JSONObject jsonObject) {
+                        Log.i(TAG, "onSuccess: " + jsonObject);
+                        try {
+                            if ("成功".equals(jsonObject.getString("response"))) {
+                                JSONObject jsonObj = jsonObject.getJSONObject("result");
+                                TemperatureRangeBean rangeBean = new Gson().fromJson(jsonObj.toString(), TemperatureRangeBean.class);
+                                Log.i(TAG, "onSuccess: " + rangeBean);
+                                xMaxValue[5] = rangeBean.getOneday_max();
+                                xMinValue[5] = rangeBean.getOneday_min();
+
+                                xMaxValue[4] = rangeBean.getTwoday_max();
+                                xMinValue[4] = rangeBean.getTwoday_min();
+
+                                xMaxValue[3] = rangeBean.getThreeday_max();
+                                xMinValue[3] = rangeBean.getThreeday_min();
+
+                                xMaxValue[2] = rangeBean.getTwoday_max();
+                                xMinValue[2] = rangeBean.getTwoday_min();
+
+                                xMaxValue[1] = rangeBean.getToday_max();
+                                xMinValue[1] = rangeBean.getToday_min();
+
+                                xMaxValue[0] = rangeBean.getYesterday_max();
+                                xMinValue[0] = rangeBean.getYesterday_min();
+                                showChart(mLcWenduTable, getLineData(xMaxValue, xMinValue));
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onError() {
+
+                    }
+                });
+    }
+
+    private void initEvent() {
+        mIvLifeFinsh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                initTemperatureData();
+            }
+        });
+        mVpTable.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int i, float v, int i1) {
+
+            }
+
+            @Override
+            public void onPageSelected(int i) {
+                initIndicator(i);
+                Log.i(TAG, "onPageSelected: "+i);
+                switch (i){
+                    case 0:
+                        break;
+                    case 1:
+                        //pm2_5Fragment.getPm2Request().clean();
+                        break;
+                    case 2:
+                        break;
+                    case 3:
+                        break;
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int i) {
+
+            }
+        });
+    }
+
+
+    private void initTemperatureData() {
+        new NetRequest("today.live")
+                .setNetworkOnResult(new NetworkOnResult() {
+                    @Override
+                    public void onSuccess(JSONObject jsonObject) {
+                        try {
+                            if ("成功".equals(jsonObject.getString("response"))) {
+                                JSONObject jsonObj = jsonObject.getJSONObject("result");
+                                int temperature_current = jsonObj.getInt("temperature_current");
+                                int temperature_max = jsonObj.getInt("temperature_max");
+                                int temperature_min = jsonObj.getInt("temperature_min");
+                                mTvLifeCo.setText(temperature_current + "");
+                                mTvLifeInfo.setText("今天:" + temperature_min + "-" + temperature_max + "°C");
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onError() {
+
+                    }
+                });
+    }
+
+    private void initView() {
+        mTvLifeCo = (TextView) getView().findViewById(R.id.tv_life_co);
+        mTvLifeInfo = (TextView) getView().findViewById(R.id.tv_life_info);
+        mIvLifeFinsh = (ImageView) getView().findViewById(R.id.iv_life_finsh);
+        mLcWenduTable = (LineChart) getView().findViewById(R.id.lc_wendu_table);
+        mHsvList = (GridView) getView().findViewById(R.id.hsv_list);
+        mVpTable = (ViewPager) getView().findViewById(R.id.vp_table);
+        mVpTable.setOffscreenPageLimit(0);
+        mTvPmTextInfo = (TextView) getView().findViewById(R.id.tv_pm_text_info);
+        mLlIndicator = (LinearLayout) getView().findViewById(R.id.ll_indicator);
+    }
+
+
+    private void showChart(LineChart lineChart, LineData lineData) {
+        lineChart.getAxisRight().setEnabled(false); // 隐藏右边 的坐标轴
+        lineChart.getAxisLeft().setEnabled(false); // 隐藏左边 的坐标轴
+        lineChart.setDescription("");
+        lineChart.getXAxis().setGridColor(Color.TRANSPARENT);//去掉网格中竖线的显示
+        lineChart.setData(lineData); // 设置数据,默认设置空数据
+        Legend mLegend = lineChart.getLegend(); // 设置比例图标示，就是那个一组y的value的
+//        mLegend.setForm(Legend.LegendForm.CIRCLE);// 样式
+        mLegend.setEnabled(false);
+//        mLegend.setFormSize(6f);// 字体
+//        mLegend.setTextColor(Color.parseColor("#4151b1"));// 颜色
+        lineChart.getXAxis().setTextColor(Color.parseColor("#4151b1"));
+        /**
+         * 设置X轴
+         * */
+        XAxis xAxis = lineChart.getXAxis();
+        xAxis.setEnabled(true);//显示X轴
+//        xAxis.setPosition(XAxis.XAxisPosition.TOP);//X轴位置
+//        xAxis.setDrawGridLines(true);//设置x轴上每个点对应的线
+//        xAxis.setSpaceBetweenLabels(2);
+//        xAxis.setDrawGridLines(false);
+//        YAxis leftAxis = lineChart.getAxisLeft();
+//        leftAxis.setPosition(YAxis.YAxisLabelPosition.OUTSIDE_CHART);
+        lineChart.postInvalidate();
+    }
+
+
+    private LineData getLineData(float[] maxValue, float[] minValue) {
+        String[] xData = {"昨天", "今天", "明天", "周五", "周六", "周日"};
+        ArrayList<String> xValue = new ArrayList<>();
+        for (int i = 0; i < xData.length; i++) {
+            xValue.add(xData[i]);
+        }
+        ArrayList<Entry> yMaxValue = new ArrayList<>();
+        ArrayList<Entry> yMinValue = new ArrayList<>();
+        for (int i = 0; i < xValue.size(); i++) {
+            yMaxValue.add(new Entry(maxValue[i], i));
+            yMinValue.add(new Entry(minValue[i], i));
+        }
+        LineDataSet lineDataSetMax = new LineDataSet(yMaxValue, "");
+        // 用y轴的集合来设置参数
+        lineDataSetMax.setLineWidth(2.0f); // 线宽
+        lineDataSetMax.setColor(Color.RED);// 显示颜色
+        lineDataSetMax.setCircleSize(3f);// 显示的圆形大小
+        lineDataSetMax.setCircleColor(Color.RED);
+        lineDataSetMax.setDrawCircleHole(false);
+        lineDataSetMax.setDrawCubic(true);//允许设置平滑曲线
+
+        LineDataSet lineDataSetMin = new LineDataSet(yMinValue, "");
+        // 用y轴的集合来设置参数
+        lineDataSetMin.setLineWidth(2.0f); // 线宽
+        lineDataSetMin.setColor(Color.BLUE);// 显示颜色
+        lineDataSetMin.setCircleSize(3f);// 显示的圆形大小
+        lineDataSetMin.setCircleColor(Color.BLUE);
+        lineDataSetMin.setDrawCircleHole(false);
+        lineDataSetMin.setDrawCubic(true);
+
+        List<LineDataSet> lineDataSets = new ArrayList<>();
+        lineDataSets.add(lineDataSetMax);
+        lineDataSets.add(lineDataSetMin);
+//        lineDataSet.setCircleColor(Color.TRANSPARENT);// 圆形的颜色
+//        lineDataSet.setHighLightColor(Color.TRANSPARENT); // 点击后高亮的线的颜色
+//        lineDataSet.setDrawValues(false);//隐藏折线图每个数据点的值
+//        ArrayList<LineDataSet> lineDataSets = new ArrayList<LineDataSet>();
+//        lineDataSets.add(lineDataSet); // add the datasets
+//        lineDataSet.setDrawCircles(false);//图表上的数据点是否用小圆圈表示
+
+//        lineDataSet.setDrawFilled(false);//是否填充折线下方
+//        lineDataSet.setFillColor(Color.rgb(0, 255, 255));//折线图下方填充颜色设置
+        LineData lineData = new LineData(xValue, lineDataSets);
+        return lineData;
+    }
+
+
+    private class ScollTableAdapter extends FragmentPagerAdapter {
+
+        public ScollTableAdapter(FragmentManager fm) {
+            super(fm);
+        }
+
+        @Override
+        public Fragment getItem(int i) {
+            return fragments[i];
+        }
+
+        @Override
+        public int getCount() {
+            return fragments.length;
+        }
+    }
+}

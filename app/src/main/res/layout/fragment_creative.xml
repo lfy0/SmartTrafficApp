@@ -1,0 +1,10 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/maps"
+    tools:context="com.example.nappy.ui.fragment.CreativeFragment">
+   <com.example.nappy.view.TrafficView
+       android:layout_width="match_parent"
+       android:layout_height="match_parent" />
+</LinearLayout>
